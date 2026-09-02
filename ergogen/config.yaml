@@ -1,3 +1,5 @@
+meta:
+  engine: 4.1.0
 units:
   kx: u
   ky: u
@@ -26,38 +28,235 @@ points:
         
         outer-pinky:
           key:
-
+            column_net: P2
           rows.r0.skip: true
         pinky:
           rows.r0.skip: true
           key:
             stagger: 0
             splay: 0
+            column_net: P3
         ring:
           key:
-            stagger: 5
+            stagger: 10
             splay: -4
+            column_net: P4
             adjust:
-              shift: [0.5,0]
+              shift: [0.7,0]
         middle:
           key:
             stagger: 5
             splay: -4
+            column_net: P5
             adjust:
-              shift: [1.5,0]
+              shift: [1.7,0]
         index:
+          rows.r0.skip: true
           key:
             stagger: -5
+            column_net: P6
             adjust:
-              shift: [1.5,0]
+              shift: [1.7,0]
         inner:
           rows.r0.skip: true
           key:
+            column_net: P7
             adjust:
-              shift: [1.5,0]
+              shift: [1.7,0]
 
       rows:
         r0:
+          row_net: P8
         r1:
+          row_net: P9
         r2:
+          row_net: P10
         r3:
+          row_net: P14
+    thumbfan:
+      anchor:
+        - ref: matrix_index_r0
+          shift: [0, 0]
+      columns:
+        1:
+          key:
+            column_net: P5
+        2:
+          key:
+            column_net: P6
+            adjust:
+              shift: [3.5,  -3]
+              rotate: -15
+        3:
+          key:
+            column_net: P7
+            adjust:
+              shift: [5.5,  -12]
+              rotate: -30
+      rows:
+        r0:
+          row_net: P16
+
+outlines:
+  keys:
+    - what: rectangle
+      where: true
+      size: [17.5, 16.5]
+
+      fillet: 1
+  _outline:
+    - what: polygon
+      operation: stack
+      fillet: 1
+      points:
+        - ref: matrix_outer-pinky_r3
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_ring_r3
+          shift: [-0.5px, 0py]
+        - ref: matrix_ring_r3
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_middle_r3
+          shift: [-0.5px, 0.25py]
+        - ref: matrix_middle_r3
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_index_r3
+          shift: [-0.4px, 0.75py]
+        - ref: matrix_inner_r3
+          shift: [-1.3px, 0.5py]
+        - ref: matrix_inner_r3
+          shift: [1.9px, 0.5py]
+        - ref: matrix_inner_r3
+          shift: [1.85px, -3.1py]
+        - ref: thumbfan_3_r0
+          shift: [0.5px, -0.5py]
+        - ref: thumbfan_3_r0
+          shift: [-0.5px, -0.5py]
+        - ref: thumbfan_2_r0
+          shift: [-0.5px, -0.5py]
+        - ref: thumbfan_1_r0
+          shift: [-0.5px, -0.5py]
+        - ref: matrix_ring_r0
+          shift: [-0.5px, -0.5py]
+        - ref: matrix_ring_r1
+          shift: [-0.5px, -1py]
+        - ref: matrix_outer-pinky_r1
+          shift: [-0.5px, -0.5py]
+  
+  combo:
+    - name: _outline
+    - operation: stack
+      name: keys
+pcbs:
+  splake-ish:
+    template: kicad8
+    outlines:
+      main:
+        outline: _outline
+    footprints:
+
+      choc_hotswap:
+        what: ceoloide/switch_choc_v1_v2
+        where: true
+        params:
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+
+          include_stabilizer_pad: false
+
+          reversible: true
+        adjust:
+          rotate: 180
+
+      ks27_hotswap:
+        what: ks27
+        where: true
+        params:
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        adjust:
+
+          rotate: 180
+
+      diode:
+        what: ceoloide/diode_tht_sod123
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -9]
+          rotate: 180
+        
+      RGB:
+        what: ceoloide/led_sk6812mini-e
+        where: matrix_inner_r0
+        params:
+          P2: rgb
+          P4: rgb
+          reversible: true
+        adjust:
+          shift: [0, 5]
+
+      nicenano:
+        what: ceoloide/mcu_nice_nano
+        where:
+          ref: matrix_inner_r3
+          shift: [1.3kx, -0.35ky]
+        params:
+          reverse_mount: true
+          reversible: true
+
+      battery_connector:
+        what: ceoloide/battery_connector_jst_ph_2
+        where: matrix_inner_r3
+        params:
+          reversible: true
+        adjust:
+          shift: [1.5kx, -1.5ky]
+          rotate: -90
+
+      reset_switch:
+        what: ceoloide/reset_switch_smd_side
+        where: matrix_inner_r3
+        params:
+          from: "{{colrow}}"
+          to: GND
+          reversible: true
+        adjust:
+          shift: [2kx, -0ky]
+          rotate: -90
+        
+      ucbc:
+        what: usbc
+        where: matrix_inner_r3
+        adjust:
+          shift: [2kx, -1.5ky]
+          rotate: 90
+
+
+      # screwhole1:
+      #   what: ceoloide/mounting_hole_plated
+      #   where:
+      #     ref: [matrix_c1_r1]
+      #     shift: [0.45kx, -0.5ky]
+      
+
+
+cases:
+  # _wall:
+  #   - name: _wall_outline
+  #     extrude: 7
+  # plate_tester:
+  #   - what: case
+  #     name: _wall
+  #   - name: switch_plate
+  #     shift: [0,0,5]
+  #     extrude: 2
+
+  # case:
+  #   - what: case
+  #     name: _wall
+  #     operation: add
+  #   - name: xlBoard
+  #     operation: add
