@@ -1,0 +1,63 @@
+units:
+  kx: u
+  ky: u
+  px: kx + 2
+  py: ky + 2
+  
+  w: 18
+  h: 17
+
+  $default_width: u
+  $default_height: u
+
+  starting_x: 100
+  starting_y: -120
+
+  # Default M2 Screws
+  screwSize: 1
+  standoffSize: 2.5
+
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [starting_x, starting_y]
+      columns:
+        
+        outer-pinky:
+          key:
+
+          rows.r0.skip: true
+        pinky:
+          rows.r0.skip: true
+          key:
+            stagger: 0
+            splay: 0
+        ring:
+          key:
+            stagger: 5
+            splay: -4
+            adjust:
+              shift: [0.5,0]
+        middle:
+          key:
+            stagger: 5
+            splay: -4
+            adjust:
+              shift: [1.5,0]
+        index:
+          key:
+            stagger: -5
+            adjust:
+              shift: [1.5,0]
+        inner:
+          rows.r0.skip: true
+          key:
+            adjust:
+              shift: [1.5,0]
+
+      rows:
+        r0:
+        r1:
+        r2:
+        r3:
