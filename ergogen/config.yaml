@@ -83,13 +83,13 @@ points:
           key:
             column_net: P6
             adjust:
-              shift: [3.5,  -5]
+              shift: [3,  -4]
               rotate: -20
         3:
           key:
             column_net: P7
             adjust:
-              shift: [4,  -17]
+              shift: [3,  -15]
               rotate: -40
       rows:
         r1:
@@ -146,9 +146,9 @@ outlines:
         - ref: matrix_inner_r3
           shift: [-1.3px, 0.5py]
         - ref: matrix_inner_r3
-          shift: [1.9px, 0.5py]
+          shift: [2.1px, 0.5py]
         - ref: matrix_inner_r3
-          shift: [1.9px, -3.5py]
+          shift: [2.1px, -3.5py]
         - ref: thumbfan_3_r1
           shift: [0.5px, -0.5py]
         - ref: thumbfan_3_r1
@@ -170,6 +170,25 @@ outlines:
     - name: _outline
     - operation: stack
       name: keys
+
+  switch_plate_keys:
+    - what: rectangle
+      where: true
+      size: [kx-5.2,ky-5.2] # this makes it 14mm
+
+  xlBoard:
+    - name: _outline
+      expand: 2
+
+  switch_plate:
+    - name: xlBoard
+    - operation: subtract
+      name: switch_plate_keys
+
+  wall_outline:
+    - name: xlBoard
+    - operation: subtract
+      name: _outline
 pcbs:
   splake-ish:
     template: kicad8
@@ -192,14 +211,14 @@ pcbs:
         adjust:
           rotate: 180
 
-      # ks27_hotswap:
-      #   what: ks27
-      #   where: true
-      #   params:
-      #     from: "{{column_net}}"
-      #     to: "{{colrow}}"
-      #   adjust:
-      #     rotate: 180
+      ks27_hotswap:
+        what: ks27
+        where: true
+        params:
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        adjust:
+          rotate: 180
 
       diode:
         what: ceoloide/diode_tht_sod123
@@ -250,12 +269,12 @@ pcbs:
           shift: [2kx, -0ky]
           rotate: -90
         
-      # ucbc:
-      #   what: usbc
-      #   where: matrix_inner_r3
-      #   adjust:
-      #     shift: [2kx, -1.5ky]
-      #     rotate: 90
+      ucbc:
+        what: usbc
+        where: matrix_inner_r3
+        adjust:
+          shift: [2kx, -1.5ky]
+          rotate: 90
 
 
       # screwhole1:
@@ -267,15 +286,15 @@ pcbs:
 
 
 cases:
-  # _wall:
-  #   - name: _wall_outline
-  #     extrude: 7
-  # plate_tester:
-  #   - what: case
-  #     name: _wall
-  #   - name: switch_plate
-  #     shift: [0,0,5]
-  #     extrude: 2
+  _wall:
+    - name: wall_outline
+      extrude: 7
+  plate_tester:
+    - what: case
+      name: _wall
+    - name: switch_plate
+      shift: [0,0,5]
+      extrude: 2
 
   # case:
   #   - what: case
