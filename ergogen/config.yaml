@@ -103,16 +103,11 @@ points:
       columns:
         1:
           key:
-            column_net: P5
-            adjust:
-              rotate: 15
-              shift: [-4, -6]
-        2:
-          key:
-            column_net: P6
+            column_net: P4
             adjust:
               rotate: 7
-              shift: [-2, -2]
+              shift: [16.5, -2.2]
+
 
           
       rows:
@@ -157,12 +152,13 @@ outlines:
           shift: [-0.5px, -0.5py]
         - ref: thumbfan_1_r1
           shift: [-0.5px, -0.5py]
-        - ref: thumbfan2_2_r1
-          shift: [-0.5px, -0.5py]
         - ref: thumbfan2_1_r1
           shift: [-0.5px, -0.5py]
         - ref: thumbfan2_1_r1
-          shift: [-0.5px, 0.25py]
+          shift: [-0.9px, -0py]
+
+        - ref: matrix_ring_r1
+          shift: [-0.365px, -1py]
         - ref: matrix_outer-pinky_r1
           shift: [-0.5px, -0.5py]
   
@@ -211,14 +207,26 @@ pcbs:
         adjust:
           rotate: 180
 
+      # ks27_hotswap:
+      #   what: ks27
+      #   where: true
+      #   params:
+      #     from: "{{column_net}}"
+      #     to: "{{colrow}}"
+      #   adjust:
+      #     rotate: 180
+      
       ks27_hotswap:
-        what: ks27
+        what: ceoloide/switch_gateron_ks27_ks33
         where: true
         params:
           from: "{{column_net}}"
           to: "{{colrow}}"
+          solder: false
+          reversible: true
         adjust:
           rotate: 180
+
 
       diode:
         what: ceoloide/diode_tht_sod123
@@ -230,33 +238,56 @@ pcbs:
           shift: [0, -9]
           rotate: 180
         
-      RGB:
+      RGB1:
         what: ceoloide/led_sk6812mini-e
-        where: matrix_inner_r0
+        where: matrix_pinky_r2
         params:
           P2: rgb
           P4: rgb
           reversible: true
         adjust:
-          shift: [0, 5]
+          shift: [9, 10]
+
+      
+      RGB2:
+        what: ceoloide/led_sk6812mini-e
+        where: matrix_pinky_r1
+        params:
+          P2: rgb
+          P4: rgb
+          reversible: true
+        adjust:
+          shift: [25, -5]
+      
+      RGB3:
+        what: ceoloide/led_sk6812mini-e
+        where: matrix_inner_r3
+        params:
+          P2: rgb
+          P4: rgb
+          reversible: true
+        adjust:
+          shift: [13, 0]
+      
+      RGB4:
+        what: ceoloide/led_sk6812mini-e
+        where: matrix_inner_r1
+        params:
+          P2: rgb
+          P4: rgb
+          reversible: true
+        adjust:
+          shift: [25, -10]
+
 
       nicenano:
         what: ceoloide/mcu_nice_nano
         where:
           ref: matrix_inner_r3
-          shift: [1.3kx, -0.35ky]
+          shift: [1.5kx, -0.35ky]
         params:
           reverse_mount: true
           reversible: true
-
-      battery_connector:
-        what: ceoloide/battery_connector_jst_ph_2
-        where: matrix_inner_r3
-        params:
-          reversible: true
-        adjust:
-          shift: [1.5kx, -1.5ky]
-          rotate: -90
 
       reset_switch:
         what: ceoloide/reset_switch_smd_side
@@ -266,14 +297,14 @@ pcbs:
           to: GND
           reversible: true
         adjust:
-          shift: [2kx, -0ky]
+          shift: [2.2kx, -0ky]
           rotate: -90
         
       ucbc:
         what: usbc
         where: matrix_inner_r3
         adjust:
-          shift: [2kx, -1.5ky]
+          shift: [2.2kx, -1.5ky]
           rotate: 90
 
 
