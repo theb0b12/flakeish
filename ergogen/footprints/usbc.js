@@ -43,6 +43,14 @@ fp.push(`(pad "A9" smd rect (at 1.52 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0
 fp.push(`(pad "A5" smd rect (at -0.5 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.7 1.4) (layers "${(flip ? "B" : "F")}.Cu" "${(flip ? "B" : "F")}.Mask" "${(flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.A5})`);
 fp.push(`(pad "B5" smd rect (at 0.5 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.7 1.4) (layers "${(flip ? "B" : "F")}.Cu" "${(flip ? "B" : "F")}.Mask" "${(flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.B5})`);
 
+// pads on the B side
+fp.push(`(pad "A12" smd rect (at 2.75 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.8 1.4) (layers "${(!flip ? "B" : "F")}.Cu" "${(!flip ? "B" : "F")}.Mask" "${(!flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.A12})`);
+fp.push(`(pad "B12" smd rect (at -2.75 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.8 1.4) (layers "${(!flip ? "B" : "F")}.Cu" "${(!flip ? "B" : "F")}.Mask" "${(!flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.B12})`);
+fp.push(`(pad "B9" smd rect (at -1.52 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.76 1.4) (layers "${(!flip ? "B" : "F")}.Cu" "${(!flip ? "B" : "F")}.Mask" "${(!flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.B9})`);
+fp.push(`(pad "A9" smd rect (at 1.52 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.76 1.4) (layers "${(!flip ? "B" : "F")}.Cu" "${(!flip ? "B" : "F")}.Mask" "${(!flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.A9})`);
+fp.push(`(pad "A5" smd rect (at -0.5 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.7 1.4) (layers "${(!flip ? "B" : "F")}.Cu" "${(!flip ? "B" : "F")}.Mask" "${(!flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.A5})`);
+fp.push(`(pad "B5" smd rect (at 0.5 ${flipN(flip, -4.09)} ${flipR(flip, p.r + 0)}) (size 0.7 1.4) (layers "${(!flip ? "B" : "F")}.Cu" "${(!flip ? "B" : "F")}.Mask" "${(!flip ? "B" : "F")}.Paste") (solder_mask_margin 0.102) ${p.B5})`);
+
 // // Drawings on F.CrtYd
 // fp.push(`(fp_line (start -5.07 ${flipN(flip, -5.04)}) (end 5.07 ${flipN(flip, -5.04)}) (layer "${(flip ? "B.CrtYd" : "F.CrtYd")}") (width 0.05))`);
 // fp.push(`(fp_line (start 5.07 ${flipN(flip, -5.04)}) (end 5.07 ${flipN(flip, 2.85)}) (layer "${(flip ? "B.CrtYd" : "F.CrtYd")}") (width 0.05))`);

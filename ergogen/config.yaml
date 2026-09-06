@@ -12,8 +12,8 @@ units:
   $default_width: u
   $default_height: u
 
-  starting_x: 100
-  starting_y: -120
+  starting_x: 130
+  starting_y: -150
 
   # Default M2 Screws
   screwSize: 1
@@ -24,6 +24,7 @@ points:
     matrix:
       anchor:
         shift: [starting_x, starting_y]
+        rotate: 8
       columns:
         
         outer-pinky:
@@ -194,7 +195,7 @@ pcbs:
     footprints:
 
       choc_hotswap:
-        what: ceoloide/switch_choc_v1_v2
+        what: chocv1v2b0b
         where: true
         params:
           hotswap: true
@@ -206,15 +207,6 @@ pcbs:
           reversible: true
         adjust:
           rotate: 180
-
-      # ks27_hotswap:
-      #   what: ks27
-      #   where: true
-      #   params:
-      #     from: "{{column_net}}"
-      #     to: "{{colrow}}"
-      #   adjust:
-      #     rotate: 180
       
       ks27_hotswap:
         what: ceoloide/switch_gateron_ks27_ks33
@@ -226,6 +218,22 @@ pcbs:
           reversible: true
         adjust:
           rotate: 180
+
+      via:
+        what: via
+        where: true
+        params:
+          net: "{{colrow}}"
+        adjust:
+          shift: [-0.38kx, 0.265ky]
+      
+      via2:
+        what: via
+        where: true
+        params:
+          net: "{{column_net}}"
+        adjust:
+          shift: [0.38kx, 0.265ky]
 
 
       diode:
@@ -293,7 +301,7 @@ pcbs:
         what: ceoloide/reset_switch_smd_side
         where: matrix_inner_r3
         params:
-          from: "{{colrow}}"
+          from: RST
           to: GND
           reversible: true
         adjust:
@@ -308,11 +316,41 @@ pcbs:
           rotate: 90
 
 
-      # screwhole1:
-      #   what: ceoloide/mounting_hole_plated
-      #   where:
-      #     ref: [matrix_c1_r1]
-      #     shift: [0.45kx, -0.5ky]
+      screwhole1:
+        what: ceoloide/mounting_hole_plated
+        where:
+          ref: [matrix_pinky_r3]
+          shift: [-0.5kx, -0.5ky]
+      
+      screwhole2:
+        what: ceoloide/mounting_hole_plated
+        where:
+          ref: [matrix_pinky_r2]
+          shift: [-0.5kx, -0.5ky]
+
+      screwhole3:
+        what: ceoloide/mounting_hole_plated
+        where:
+          ref: [matrix_middle_r2]
+          shift: [-0.5kx, 0.5ky]
+
+      screwhole4:
+        what: ceoloide/mounting_hole_plated
+        where:
+          ref: [matrix_middle_r1]
+          shift: [0kx, -0.8ky]
+      
+      screwhole5:
+        what: ceoloide/mounting_hole_plated
+        where:
+          ref: [matrix_inner_r1]
+          shift: [0.7kx, 0.8ky]
+
+      screwhole6:
+        what: ceoloide/mounting_hole_plated
+        where:
+          ref: [thumbfan_2_r1]
+          shift: [0.6kx, 0ky]
       
 
 
