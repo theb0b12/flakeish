@@ -237,7 +237,7 @@ pcbs:
 
 
       diode:
-        what: ceoloide/diode_tht_sod123
+        what: smd
         where: true
         params:
           from: "{{colrow}}"
